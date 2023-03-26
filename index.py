@@ -9,7 +9,7 @@ fornt = pygame.font.SysFont(None,30)
 # mau
 black = (0,0,0)
 While = (255,255,255)
-blue_ = (24,92,37)
+black__ = (65,63,63)
 black_ = (80,80,80)
 
 # setting nhan vat
@@ -73,8 +73,11 @@ random_quai = [random.randint(0,490)]
 # setting game
     # leve game 
 leve = 0
-
-
+tiep_leve = False
+chuyen_quai = 0
+tg_chuyen_quai = 1000
+vitri_leve_text = 100
+doimau = True
 # menu game
     # dieu kien chay game
 chienthang = False
@@ -82,7 +85,6 @@ batdau = False
 thoat = False
 thua = False
 choilai = False
-tiepleve = 0
 menu = True
 # spoide quai random
 img_quai = pygame.image.load(img_quai_list[0])
@@ -166,138 +168,180 @@ while thoat==False:
                     thoat=True
     elif menu==True and batdau==True and chienthang == False and thoat == False and thua == False:
     # ve man hinh
-        display.fill(black)
-    # bat su kien game
-        for ev in pygame.event.get():
-        # nhan phim di chuyen
-            if ev.type == pygame.KEYDOWN:
-                if ev.key == pygame.K_s:
-                    tocdo_y = 1
-                elif ev.key == pygame.K_w:
-                    tocdo_y = -1
-                elif ev.key == pygame.K_d:
-                    tocdo_x = 1
-                elif ev.key == pygame.K_a:
-                    tocdo_x = -1
-            # khong nhan phim di chuyen
-            elif ev.type == pygame.KEYUP:
-                tocdo_x = 0
-                tocdo_y = 0
-            # thoat game
-            elif ev.type == pygame.QUIT:
-                pygame.quit()
-    # thoi gian spoide dan
-        tgian_dan+=1
-        if tgian_dan ==tocdodan:
+        if tiep_leve!=True:
+            display.fill(black)
+            # bat su kien game
+            for ev in pygame.event.get():
+            # nhan phim di chuyen
+                if ev.type == pygame.KEYDOWN:
+                    if ev.key == pygame.K_s:
+                        tocdo_y = 1
+                    elif ev.key == pygame.K_w:
+                        tocdo_y = -1
+                    elif ev.key == pygame.K_d:
+                        tocdo_x = 1
+                    elif ev.key == pygame.K_a:
+                        tocdo_x = -1
+                # khong nhan phim di chuyen
+                elif ev.type == pygame.KEYUP:
+                    tocdo_x = 0
+                    tocdo_y = 0
+                # thoat game
+                elif ev.type == pygame.QUIT:
+                    pygame.quit()
+        # thoi gian spoide dan
+            tgian_dan+=1
+            if tgian_dan ==tocdodan:
+                for i in range(12):
+                    if y_dan[i]==0:
+                        x_dan[i] = nhanvat_x+20
+                        y_dan[i] = nhanvat_y+50
+                        break
+                tgian_dan = 0
+        # duong di vien dan
             for i in range(12):
-                if y_dan[i]==0:
-                    x_dan[i] = nhanvat_x+20
-                    y_dan[i] = nhanvat_y+50
-                    break
-            tgian_dan = 0
-    # duong di vien dan
-        for i in range(12):
-            if y_dan[i] ==0:
-                x_dan[i]=0
-                y_dan[i]=0
-            else:
-                y_dan[i]-=1
-    # duong di nhan vat
-        if nhanvat_x < 1:
-            nhanvat_x = 790
-        if nhanvat_x > 790:
-            nhanvat_x = 1
-        if nhanvat_y > 600:
-            nhanvat_y=600
-        nhanvat_x +=tocdo_x
-    # giat giat
-        if nhip==-2:
-            nhip=2
-        elif nhip==2:
-            nhip=-2
-        y_quai[0] +=nhip
-        nhanvat_y +=tocdo_y+nhip
-        y_quai[0]+=0.02
-    # duong di cua quai va auto tranh dan
-        for i in range(12):
-            if x_quai[0]>x_dan[i]:
-                if x_quai[0]-300<x_dan[i]:
-                    x_quai[0]+=0.3
-                    break
+                if y_dan[i] ==0:
+                    x_dan[i]=0
+                    y_dan[i]=0
                 else:
-                    x_quai[0]-=0.3
-                    break
-            elif x_quai[0]+50<x_dan[i]:
-                if x_quai[0]+50+300>x_dan[i]:
-                    x_quai[0]-=0.3
-                    break
-                else:
-                    x_quai[0]+=0.3
-                    break
-        # res khi quai cham man hinh
-        if x_quai[0]>680:
-            x_quai[0]=0
-        
-        if x_quai[0]<0:
-            x_quai[0]=680
-        # thoi gian spoide dan cua quai
-        tgiandan_quai+=tgian_spoi_dan0_quai
-        if tgiandan_quai > tocdodan_quai:
+                    y_dan[i]-=1
+        # duong di nhan vat
+            if nhanvat_x < 1:
+                nhanvat_x = 790
+            if nhanvat_x > 790:
+                nhanvat_x = 1
+            if nhanvat_y > 600:
+                nhanvat_y=600
+            nhanvat_x +=tocdo_x
+        # giat giat
+            if nhip==-2:
+                nhip=2
+            elif nhip==2:
+                nhip=-2
+            y_quai[0] +=nhip
+            nhanvat_y +=tocdo_y+nhip
+            y_quai[0]+=0.02
+        # duong di cua quai va auto tranh dan
+            for i in range(12):
+                if x_quai[0]>x_dan[i]:
+                    if x_quai[0]-300<x_dan[i]:
+                        x_quai[0]+=0.3
+                        break
+                    else:
+                        x_quai[0]-=0.3
+                        break
+                elif x_quai[0]+50<x_dan[i]:
+                    if x_quai[0]+50+300>x_dan[i]:
+                        x_quai[0]-=0.3
+                        break
+                    else:
+                        x_quai[0]+=0.3
+                        break
+            # res khi quai cham man hinh
+            if x_quai[0]>680:
+                x_quai[0]=0
+            
+            if x_quai[0]<0:
+                x_quai[0]=680
+            # thoi gian spoide dan cua quai
+            tgiandan_quai+=tgian_spoi_dan0_quai
+            if tgiandan_quai > tocdodan_quai:
+                for i in range(5):
+                    if y_dan_quai[i]==640:
+                        x_dan_quai[i] = x_quai[0]+10
+                        y_dan_quai[i] = y_quai[0]+50
+                        break
+                tgiandan_quai = 0
+            # duong di vien dan cua quai va tu dong nham
             for i in range(5):
-                if y_dan_quai[i]==640:
-                    x_dan_quai[i] = x_quai[0]+10
-                    y_dan_quai[i] = y_quai[0]+50
-                    break
-            tgiandan_quai = 0
-        # duong di vien dan cua quai va tu dong nham
-        for i in range(5):
-            if y_dan_quai[i]>=640:
-                x_dan_quai[i]=640
-                y_dan_quai[i]=640
+                if y_dan_quai[i]>=640:
+                    x_dan_quai[i]=640
+                    y_dan_quai[i]=640
+                else:
+                    y_dan_quai[i]+=tgian_roi_dan_quai
+            for i in range(5):
+                if x_dan_quai[i]<nhanvat_x:
+                    x_dan_quai[i]+=leve/20
+                elif x_dan_quai[i]>nhanvat_x:
+                    x_dan_quai[i]-=leve/20
+            # ve quai
+            display.blit(u[leve],(x_quai[0],y_quai[0]))
+            # ve nhan vat
+            display.blit(img_nhanvat,(nhanvat_x,nhanvat_y))
+            # dieu kien quai chet
+            for i in range(10):
+                if x_dan[i]>x_quai[0] and x_dan[i]<=x_quai[0]+50 :
+                    if y_dan[i] < y_quai[0]+50 and y_dan[i]>y_quai[0]:
+                            x_quai[0] = random.randint(0,780)
+                            y_quai[0]=0
+                            tocdodan_quai-=100
+                            tgian_dan=0
+                            tocdodan-=10
+                            tgian_roi_dan_quai+=0.1
+                            tgian_spoi_dan0_quai+=0.1
+                            leve+=1
+                            pygame.time.delay(500)
+                            tiep_leve = True
+            #dieu kien chien thang
+            if leve==17:
+                chienthang=True
+            #dieu kien minh chet
+            for i in range(5):
+                if x_dan_quai[i]>nhanvat_x and x_dan_quai[i]<=nhanvat_x+50 :
+                    if y_dan_quai[i]+30 >= nhanvat_y and y_dan_quai[i]+30<nhanvat_y+50:
+                            thua= True
+                elif x_dan_quai[i]+20>nhanvat_x and x_dan_quai[i]<=nhanvat_x+50:
+                    if y_dan_quai[i]+30 >= nhanvat_y and y_dan_quai[i]+30<nhanvat_y+50:
+                            thua = True
+            if x_quai[0]>nhanvat_x and x_quai[0]<=nhanvat_x+50 :
+                    if y_quai[0]+50 >= nhanvat_y and y_quai[0]+50<nhanvat_y+50:
+                            thua= True
+            elif x_quai[0]+50>nhanvat_x and x_quai[0]<=nhanvat_x+50:
+                    if y_quai[0]+50 >= nhanvat_y and y_quai[0]+50<nhanvat_y+50:
+                            thua= True
+            # ve vien dan  
+            for i in range(12):
+                if y_dan[i]!=0:   
+                    display.blit(img_dan,(x_dan[i],y_dan[i]))
+            # ve vien dan quai  
+            for i in range(5):
+                if y_dan_quai[i]!=650:   
+                    display.blit(img_dan_quai,(x_dan_quai[i],y_dan_quai[i]))
+            
+        else :
+            if doimau==True:
+                display.fill(black)
+                win_text = fornt.render("Next leve",True,While)
+                leve_text = "Leve - "+str(leve)+" - "+" ==> "+str(leve+1)
+                muc_1 = fornt.render(leve_text,True,While)
+                khung_text = win_text.get_rect()
+                khung_muc_1 = muc_1.get_rect()
+                khung_text.topleft = (vitri_leve_text,203)
+                khung_muc_1.topleft = (vitri_leve_text,253)
+                display.blit(win_text,khung_text)
+                display.blit(muc_1,khung_muc_1)
+                vitri_leve_text+=0.3
+                doimau=False
             else:
-                y_dan_quai[i]+=tgian_roi_dan_quai
-        for i in range(5):
-            if x_dan_quai[i]<nhanvat_x:
-                x_dan_quai[i]+=leve/20
-            elif x_dan_quai[i]>nhanvat_x:
-                x_dan_quai[i]-=leve/20
-        # ve quai
-        display.blit(u[leve],(x_quai[0],y_quai[0]))
-        # ve nhan vat
-        display.blit(img_nhanvat,(nhanvat_x,nhanvat_y))
-        # dieu kien quai chet
-        for i in range(10):
-            if x_dan[i]>x_quai[0] and x_dan[i]<=x_quai[0]+50 :
-                if y_dan[i] < y_quai[0]+50 and y_dan[i]>y_quai[0]:
-                        x_quai[0] = random.randint(0,780)
-                        y_quai[0]=0
-                        tocdodan_quai-=100
-                        tocdodan-=40
-                        tgian_roi_dan_quai+=0.1
-                        tgian_spoi_dan0_quai+=0.1
-                        leve+=1
-        #dieu kien minh chet
-        for i in range(5):
-            if x_dan_quai[i]>nhanvat_x and x_dan_quai[i]<=nhanvat_x+50 :
-                if y_dan_quai[i]+30 >= nhanvat_y and y_dan_quai[i]+30<nhanvat_y+50:
-                        thua= True
-            elif x_dan_quai[i]+20>nhanvat_x and x_dan_quai[i]<=nhanvat_x+50:
-                if y_dan_quai[i]+30 >= nhanvat_y and y_dan_quai[i]+30<nhanvat_y+50:
-                        thua = True
-        if x_quai[0]>nhanvat_x and x_quai[0]<=nhanvat_x+50 :
-                if y_quai[0]+50 >= nhanvat_y and y_quai[0]+50<nhanvat_y+50:
-                        thua= True
-        elif x_quai[0]+50>nhanvat_x and x_quai[0]<=nhanvat_x+50:
-                if y_quai[0]+50 >= nhanvat_y and y_quai[0]+50<nhanvat_y+50:
-                        thua= True
-        # ve vien dan  
-        for i in range(12):
-            if y_dan[i]!=0:   
-                display.blit(img_dan,(x_dan[i],y_dan[i]))
-        # ve vien dan quai  
-        for i in range(5):
-            if y_dan_quai[i]!=650:   
-                display.blit(img_dan_quai,(x_dan_quai[i],y_dan_quai[i]))
+                display.fill(black__)
+                win_text = fornt.render("Next leve",True,While)
+                leve_text = "Leve - "+str(leve)+" - "+" ==> "+str(leve+1)
+                muc_1 = fornt.render(leve_text,True,While)
+                khung_text = win_text.get_rect()
+                khung_muc_1 = muc_1.get_rect()
+                khung_text.topleft = (vitri_leve_text,200)
+                khung_muc_1.topleft = (vitri_leve_text,250)
+                display.blit(win_text,khung_text)
+                display.blit(muc_1,khung_muc_1)
+                vitri_leve_text+=0.3
+                doimau = True
+            if chuyen_quai==tg_chuyen_quai:
+                 chuyen_quai=0
+                 vitri_leve_text=100
+                 tiep_leve=False
+            else:
+                 chuyen_quai+=0.5
+    
         
     elif menu==True and batdau==True and chienthang == False and thoat == False and thua == True:
         display.fill(black)
@@ -324,6 +368,10 @@ while thoat==False:
                     y_quai[0] = 0
                     x_dan = [0,0,0,0,0,0,0,0,0,0,0,0]
                     x_dan_quai=[0,0,0,0,0]
+                    tgiandan_quai = 0
+                    tocdodan_quai = 1000
+                    tgian_spoi_dan0_quai = 0.5
+                    tgian_roi_dan_quai = 0.2
                     y_dan_quai=[650,650,650,650,650]
                     y_dan = [0,0,0,0,0,0,0,0,0,0,0,0]
                     break
@@ -331,5 +379,6 @@ while thoat==False:
                     thoat=True
             elif ev.type==pygame.QUIT:
                     thoat=True
-        
+    elif menu==True and batdau==True and chienthang == True and thoat == False and thua == False:
+         display.fill(black)
     pygame.display.update()
