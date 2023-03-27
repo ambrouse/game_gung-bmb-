@@ -2,16 +2,17 @@
 import pygame
 pygame.init()
 import time
+mucamthanh = 0.5
 # am thanh dan
 pygame.mixer.init()
 amthanh_dan = pygame.mixer.Sound("sound_dan/mixkit-electronic-retro-block-hit-2185.wav")
-amthanh_dan.set_volume(0.05)
+amthanh_dan.set_volume(mucamthanh)
 luachon_nhac_dan = 1
 # amthanh nhac nen
 luachon_nhacnen_2 = "y2mate.com - Game Show Tension Bed Music  Jon Brooks.mp3"
 luachon_nhacnen_1 = "y2mate.com - Nhạc Stream Của Độ Mixi 2 Mixigaming.mp3"
 amthanh_nen = pygame.mixer.Sound("sound_nen/"+luachon_nhacnen_1)
-amthanh_nen.set_volume(0.05)
+amthanh_nen.set_volume(mucamthanh)
 amthanh_nen.play()
 laplainhacnen = time.time()
 laplainhacnen_ = 0
@@ -195,6 +196,15 @@ while thoat==False:
                     khungchonnhac = True
             elif ev.type==pygame.QUIT:
                     thoat=True
+            elif ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_j:
+                    mucamthanh-=0.05
+                    amthanh_dan.set_volume(mucamthanh)
+                    amthanh_nen.set_volume(mucamthanh)
+                elif ev.key == pygame.K_k:
+                    mucamthanh+=0.05
+                    amthanh_dan.set_volume(mucamthanh)
+                    amthanh_nen.set_volume(mucamthanh)
     elif menu==True and batdau==False and chienthang == False and thoat == False and thua == False and khungchonnhac == True:
             display.fill(black)
             a = pygame.draw.rect(display,While,(200,260,120,50))
@@ -216,19 +226,28 @@ while thoat==False:
                     if a.collidepoint(ev.pos):
                         amthanh_nen.stop()
                         amthanh_nen = pygame.mixer.Sound("sound_nen/"+luachon_nhacnen_1)
-                        amthanh_nen.set_volume(0.05)
+                        amthanh_nen.set_volume(mucamthanh)
                         amthanh_nen.play()
                         luachon_nhac_dan = 1
                         khungchonnhac = False
                     elif c.collidepoint(ev.pos):
                         amthanh_nen.stop()
                         amthanh_nen = pygame.mixer.Sound("sound_nen/"+luachon_nhacnen_2)
-                        amthanh_nen.set_volume(0.03)
+                        amthanh_nen.set_volume(mucamthanh)
                         amthanh_nen.play()
                         luachon_nhac_dan=0
                         khungchonnhac = False
                 elif ev.type==pygame.QUIT:
                         thoat=True
+                elif ev.type == pygame.KEYDOWN:
+                    if ev.key == pygame.K_j:
+                        mucamthanh-=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
+                    elif ev.key == pygame.K_k:
+                        mucamthanh+=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
     elif menu==True and batdau==True and chienthang == False and thoat == False and thua == False:
     # ve man hinh
         if tiep_leve!=True:
@@ -240,12 +259,20 @@ while thoat==False:
                 if ev.type == pygame.KEYDOWN:
                     if ev.key == pygame.K_s:
                         tocdo_y = 1
-                    elif ev.key == pygame.K_w:
+                    if ev.key == pygame.K_w:
                         tocdo_y = -1
-                    elif ev.key == pygame.K_d:
+                    if ev.key == pygame.K_d:
                         tocdo_x = 1
-                    elif ev.key == pygame.K_a:
+                    if ev.key == pygame.K_a:
                         tocdo_x = -1
+                    if ev.key == pygame.K_j:
+                        mucamthanh-=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
+                    if ev.key == pygame.K_k:
+                        mucamthanh+=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
                 # khong nhan phim di chuyen
                 elif ev.type == pygame.KEYUP:
                     tocdo_x = 0
@@ -324,7 +351,7 @@ while thoat==False:
                     x_dan_quai[i]=650
                     y_dan_quai[i]=650
                 else:
-                    y_dan_quai[i]+=tgian_roi_dan_quaiq
+                    y_dan_quai[i]+=tgian_roi_dan_quai
             for i in range(5):
                 if x_dan_quai[i]<nhanvat_x:
                     x_dan_quai[i]+=leve/20
@@ -457,6 +484,15 @@ while thoat==False:
                     thoat=True
             elif ev.type==pygame.QUIT:
                     thoat=True
+            elif ev.type == pygame.KEYDOWN:
+                if ev.key == pygame.K_j:
+                    mucamthanh-=0.05
+                    amthanh_dan.set_volume(mucamthanh)
+                    amthanh_nen.set_volume(mucamthanh)
+                elif ev.key == pygame.K_k:
+                    mucamthanh+=0.05
+                    amthanh_dan.set_volume(mucamthanh)
+                    amthanh_nen.set_volume(mucamthanh)
     elif menu==True and batdau==True and chienthang == True and thoat == False and thua == False:
         display.fill(black__)
         win_text = fornt.render("You won the game",True,While)
@@ -468,6 +504,18 @@ while thoat==False:
         khung_muc_1.topleft = (350,250)
         display.blit(win_text,khung_text)
         display.blit(muc_1,khung_muc_1)
+        for ev in pygame.event.get():
+            if ev.type == pygame.KEYDOWN:
+                    if ev.key == pygame.K_j:
+                        mucamthanh-=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
+                    elif ev.key == pygame.K_k:
+                        mucamthanh+=0.05
+                        amthanh_dan.set_volume(mucamthanh)
+                        amthanh_nen.set_volume(mucamthanh)
+            elif ev.type == pygame.QUIT:
+                thoat=True
     laplainhacnen_ = time.time()
     # lap lai nhac nen
     if luachon_nhac_dan==1:
