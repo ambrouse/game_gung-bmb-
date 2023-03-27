@@ -1,0 +1,12 @@
+auto-py-to-exe(chuyen doi file)--không liên quan tới game
+
+---------------------------------oo---------------------------------------
+tăng âm lượng chọn nút k
+giảm âm lượng chọn nút j
+di chuyển : adws
+cách chơi :
+bắn hạ mục tiêu nếu chạm mục tiêu, đạn của mục tiêu, mục tiêu chạm 
+đất => thua
+bắn hạ 17 mục tiêu => thắng
+sau mỗi leve đạn sẽ bắn được nhanh hơn và đạn của mục tiêu cũng vậy
+từ sau leve 2 đạn của mục tiêu sẽ là đạn đuổi
