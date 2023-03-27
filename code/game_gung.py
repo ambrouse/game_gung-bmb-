@@ -519,13 +519,14 @@ while thoat==False:
     laplainhacnen_ = time.time()
     # lap lai nhac nen
     if luachon_nhac_dan==1:
-        if laplainhacnen_ - laplainhacnen > tg_nhacnen_2:
-            amthanh_nen.stop()
-            amthanh_nen.play()
-    else:
         if laplainhacnen_ - laplainhacnen > tg_nhacnen_1:
             amthanh_nen.stop()
+            amthanh_nen.play()
+            laplainhacnen = time.time()
+    else:
+        if laplainhacnen_ - laplainhacnen > tg_nhacnen_2:
+            amthanh_nen.stop()
             amthanh_nen.play()  
-    laplainhacnen = time.time()
+            laplainhacnen = time.time()
     time.sleep(0.000001)
     pygame.display.update()
