@@ -527,4 +527,5 @@ while thoat==False:
             amthanh_nen.stop()
             amthanh_nen.play()  
     laplainhacnen = time.time()
+    time.sleep(0.000001)
     pygame.display.update()
